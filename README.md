@@ -3,7 +3,7 @@ Bootcamp Homework #5
 
 ## Objective
 
-Created a work day scheduler that shows the current date, shows existing events, allows user to save ner events on the hour, and color codes hours by past, present, and future. 
+Created a work day scheduler that displays the current date, shows existing events, allows user to save new events on the hour, and color codes hours by past, present, and future. 
 
 ## Screen Shot
 
