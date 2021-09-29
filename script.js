@@ -1,6 +1,4 @@
-
-
-//Variables for text fields
+//Variables for textarea fields
 var nineInput = $("#input-9AM");
 var tenInput = $("#input-10AM");
 var elevenInput = $("#input-11AM");
@@ -26,6 +24,21 @@ var calendarEvents = {
 }
 
 // TODO:Add function for populated calendarEvents from local storage
+function displayCalendarEvents() {
+    calendarEvents = JSON.parse(localStorage.getItem("calendarEvents"));
+    console.log(calendarEvents.nineInput);
+   
+    nineInput.val(calendarEvents.nineInput);
+    tenInput.val(calendarEvents.tenInput);
+    elevenInput.val(calendarEvents.elevenInput);
+    twelveInput.val(calendarEvents.twelveInput);
+    oneInput.val(calendarEvents.oneInput);
+    twoInput.val(calendarEvents.twoInput);
+    threeInput.val(calendarEvents.threeInput);
+    fourInput.val(calendarEvents.fourInput);
+}
+
+displayCalendarEvents();
 
 
 // Event listener for click on image class
