@@ -11,13 +11,13 @@ var fourInput = $("#input-4PM");
 // Variable for saving buttons
 var saveBtn = $(".saveBtn");
 
-// TODO: variables for Moment functions
+// Variables for Moment functions for displaying hours in different colors
 var now = moment();
 var currentDay = $("#currentDay");
 var currentHour = now.format("HH");
 
 
-// Variable for local storage functions
+// Variables for local storage functions
 var calendarEvents = {
     nineInput: nineInput.val(), 
     tenInput: tenInput.val(), 
@@ -30,6 +30,27 @@ var calendarEvents = {
 }
 
 
+// Starts the calendar page but setting the current date, comparing the current time to set colors, and calling the function load existing events
+function start() {
+    currentDay.text(now.format("MMMM DD, YYYY"));
+
+    $("input").each( function(){
+        var dataHour = $(this).attr("data-hour")
+       
+        if (dataHour > currentHour) {
+            $(this).addClass("future");
+            
+        } else if (dataHour == currentHour) {
+            $(this).addClass("present");
+    
+        } else if (dataHour < currentHour) {
+            $(this).addClass("past");
+
+        } 
+    })
+
+    displayCalendarEvents();
+}
 
 // Poulates textarea fields with any events saved in local storage when page loads
 function displayCalendarEvents() {
@@ -47,45 +68,7 @@ function displayCalendarEvents() {
     }
 }
 
-displayCalendarEvents();
-
-// TODO: Add moment functionality
-
-$("input").each( function(){
-    var dataHour = $(this).attr("data-hour")
-    console.log(dataHour);
-   
-    if (dataHour > currentHour) {
-        $(this).addClass("future");
-        
-    } else if (dataHour == currentHour) {
-        $(this).addClass("present");
-
-    } else if (dataHour < currentHour) {
-        $(this).addClass("past");
-
-    } 
-
-})
-
-function addDateAndTime(){
-    console.log("hello!!!!");
-    console.log(now.format("MMMM DD, YYYY hh:mm"));
-    currentDay.text(now.format("MMMM DD, YYYY hh:mm"));
-   
-}
-
-addDateAndTime();
-
-// Event listener for click on image class
-saveBtn.on("click", function(event) {
-    event.preventDefault();
-    var siblingInput = ($(this).siblings("input")[0]); //Grabbing the sibling input of whatever button is pressed
-    saveEventData(siblingInput);
-})
-
-
-// Saves new input in textareas as JSON string
+// Saves any new input entered in textareas on the global events variable
 function saveEventData(siblingInput) { 
     var eventTime = siblingInput.id.split("-")[1];
     
@@ -108,9 +91,16 @@ function saveEventData(siblingInput) {
    
     // Saves updated calendarEvents back to local storage
     localStorage.setItem("calendarEvents", JSON.stringify(calendarEvents));
-
 }
     
 
+// Event listener for click on image class
+saveBtn.on("click", function(event) {
+    event.preventDefault();
+    var siblingInput = ($(this).siblings("input")[0]); 
+    saveEventData(siblingInput);
+})
 
+// Calls start function
+start();
 
