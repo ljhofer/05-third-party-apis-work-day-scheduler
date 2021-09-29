@@ -8,8 +8,16 @@ var twoInput = $("#input-2PM");
 var threeInput = $("#input-3PM");
 var fourInput = $("#input-4PM");
 
-// Variable for right hand image class
+// Variable for saving buttons
 var saveBtn = $(".saveBtn");
+
+// TODO: variables for Moment functions
+var now = moment();
+var currentDay = $("#currentDay");
+var CurrentHour = now.format("HH");
+// var past = 
+// var present =
+// var future = 
 
 // Variable for local storage functions
 var calendarEvents = {
@@ -23,23 +31,49 @@ var calendarEvents = {
     fourInput: fourInput.val(),
 }
 
-// TODO:Add function for populated calendarEvents from local storage
+
+// Poulates textarea fields with any events saved in local storage when page loads
 function displayCalendarEvents() {
-    calendarEvents = JSON.parse(localStorage.getItem("calendarEvents"));
-    console.log(calendarEvents.nineInput);
-   
-    nineInput.val(calendarEvents.nineInput);
-    tenInput.val(calendarEvents.tenInput);
-    elevenInput.val(calendarEvents.elevenInput);
-    twelveInput.val(calendarEvents.twelveInput);
-    oneInput.val(calendarEvents.oneInput);
-    twoInput.val(calendarEvents.twoInput);
-    threeInput.val(calendarEvents.threeInput);
-    fourInput.val(calendarEvents.fourInput);
+    
+    if (localStorage.getItem("calendarEvents") !== null) {
+        calendarEvents = JSON.parse(localStorage.getItem("calendarEvents"));
+        nineInput.val(calendarEvents.nineInput);
+        tenInput.val(calendarEvents.tenInput);
+        elevenInput.val(calendarEvents.elevenInput);
+        twelveInput.val(calendarEvents.twelveInput);
+        oneInput.val(calendarEvents.oneInput);
+        twoInput.val(calendarEvents.twoInput);
+        threeInput.val(calendarEvents.threeInput);
+        fourInput.val(calendarEvents.fourInput);
+    }
 }
 
 displayCalendarEvents();
 
+// TODO: Add moment functionality
+function addDateAndTime() {
+    currentDay.text(now.format("MMMM DD, YYYY hh:mm"));
+    var fakeHour = $
+    
+    $("input").each(function() {
+
+        
+
+
+    })
+
+    
+    //     if () {
+    //     console.log("hurray");
+    // }
+
+    //if data.hour is < currentHour then = future?
+    //if data.hour is = currentHour then = present
+    //if data.hour is < currentHour then = past
+
+}
+
+addDateAndTime();
 
 // Event listener for click on image class
 saveBtn.on("click", function(event) {
@@ -49,12 +83,10 @@ saveBtn.on("click", function(event) {
 })
 
 
-// Save imput fields as JSON string
+// Saves new input in textareas as JSON string
 function saveEventData(siblingInput) { 
     var eventTime = siblingInput.id.split("-")[1];
     
-    // TODO: 
-    //Figure out which has hour has new text eventTime
     if (eventTime === "9AM") {
         calendarEvents.nineInput = siblingInput.value;
     } else if (eventTime === "10AM") {
@@ -72,13 +104,11 @@ function saveEventData(siblingInput) {
     } else
          calendarEvents.fourInput = siblingInput.value;
    
-
-    //Update the global variable with that new text
-    //Push calendarEvents back to local storage
+    // Saves updated calendarEvents back to local storage
     localStorage.setItem("calendarEvents", JSON.stringify(calendarEvents));
 
 }
     
 
-//Add moment functionality
+
 
