@@ -14,10 +14,8 @@ var saveBtn = $(".saveBtn");
 // TODO: variables for Moment functions
 var now = moment();
 var currentDay = $("#currentDay");
-var CurrentHour = now.format("HH");
-// var past = 
-// var present =
-// var future = 
+var currentHour = now.format("HH");
+
 
 // Variable for local storage functions
 var calendarEvents = {
@@ -30,6 +28,7 @@ var calendarEvents = {
     threeInput: threeInput.val(), 
     fourInput: fourInput.val(),
 }
+
 
 
 // Poulates textarea fields with any events saved in local storage when page loads
@@ -51,26 +50,29 @@ function displayCalendarEvents() {
 displayCalendarEvents();
 
 // TODO: Add moment functionality
-function addDateAndTime() {
-    currentDay.text(now.format("MMMM DD, YYYY hh:mm"));
-    var fakeHour = $
-    
-    $("input").each(function() {
 
+$("input").each( function(){
+    var dataHour = $(this).attr("data-hour")
+    console.log(dataHour);
+   
+    if (dataHour > currentHour) {
+        $(this).addClass("future");
         
+    } else if (dataHour == currentHour) {
+        $(this).addClass("present");
 
+    } else if (dataHour < currentHour) {
+        $(this).addClass("past");
 
-    })
+    } 
 
-    
-    //     if () {
-    //     console.log("hurray");
-    // }
+})
 
-    //if data.hour is < currentHour then = future?
-    //if data.hour is = currentHour then = present
-    //if data.hour is < currentHour then = past
-
+function addDateAndTime(){
+    console.log("hello!!!!");
+    console.log(now.format("MMMM DD, YYYY hh:mm"));
+    currentDay.text(now.format("MMMM DD, YYYY hh:mm"));
+   
 }
 
 addDateAndTime();
